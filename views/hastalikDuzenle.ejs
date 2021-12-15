@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Personel Yönetim</title>
+</head>
+
+<body class="bg-light">
+    <h1 class="text-center mt-4">Hastalık Bilgisi Ekle</h1>
+
+    <div class="container">
+        <% results.forEach(element => { %>
+        <form action="/hastalikDuzenle/<%= element.hastalik_id %> " method="POST">
+            <div class="container px-4 col-lg-9">
+    
+                <div class="row gx-5">
+                    <div class="col">
+                        <div class="p-3">
+                            <div class="form-group">
+                               
+                                <label for="personel_id">Personel ID</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="personel_id" placeholder="Personel ID" name="personel_id" value="<%= element.personel_id %> ">
+                                  </div>
+                            </div>
+    
+                            <div class="form-group mt-2">
+                                <label for="hastalik_adi">Hastalık Adı</label>
+                                <input type="text" class="form-control" id="hastalik_adi" placeholder="Hastalık Adı"
+                                    name="hastalik_adi" value="<%= element.hastalik_adi%> " >
+                            </div>
+                            <%var date = element.hastalik_tarihi.toISOString().slice(0, 10)  %> 
+                            
+                            <div class="form-group mt-2">
+                                <label for="hastalik_tarihi">Hastalık Tarihi</label> 
+                                <input type="date" class="form-control" id="hastalik_tarihi" name="hastalik_tarihi" value="<%=date%>">
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="semptomlar">Semptomlar</label>
+                                
+                                <textarea class="form-control" name="semptomlar" id="semptomlar" cols="85" rows="10" placeholder="semptom1, semptom2, ... şeklinde ekleyiniz"><%= element.semptomlar%></textarea>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="kronik">Kronik mi</label>
+                                <select class="form-control form-select" id="kronik" name="kronik">
+                                    <%if(element.kronik === 0){%>
+                                        <option selected value="<%= element.kronik %>">Hayır</option>
+                                    <% }else { %> 
+                                        <option selected value="<%= element.kronik %>">Evet</option>
+                                    <% } %> 
+                                    <option value="1">Evet</option>
+                                    <option value="0">Hayır</option>
+                                </select>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg">Ekle</button>
+                                <a href="/" class="btn btn-info btn-lg mx-4">İptal</a>
+                            </div>
+    
+                        </div>
+                    </div>
+                   
+                    
+    
+                </div>
+            </div>
+        </form>
+        <% }); %> 
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

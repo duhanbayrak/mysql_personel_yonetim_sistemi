@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <title>Personel Yönetim</title>
+</head>
+
+<body class="bg-light">
+    <h1 class="text-center mt-4">Eğitim Durumuna Göre Covid-19 Geçirme</h1>
+    
+                <div class="container px-4 col-lg-12 mt-4">
+                    
+                    <div class="row gx-5">
+                        
+                        
+                        <div class="col">
+                            <div class="container">
+                                <canvas id="pieChart1"></canvas>
+                               
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="container">
+                                <%results.forEach(e => {%>
+                                <h3 class="mt-2"><span class="egitim"><%=e.egitim%></span>: <span class="text-info covid_sayisi"><%=e.covid_sayisi%></span></h3>
+                                <%})%> 
+                            </div>
+                        </div>
+                       
+                        
+                        
+                    </div>
+                    
+                </div>
+           
+                
+   
+
+<script>
+
+const egitim = document.querySelectorAll(".egitim");
+const covid_sayisi = document.querySelectorAll(".covid_sayisi");
+
+var dataEgitim = [];
+var dataCovidSayisi = [];
+
+egitim.forEach(e => {
+    dataEgitim.push(e.innerText)
+});
+covid_sayisi.forEach(e => {
+    dataCovidSayisi.push(e.innerText)
+});
+console.log(dataCovidSayisi);
+
+
+    var ctx_pie1 = document.getElementById('pieChart1').getContext('2d');
+    var pieChart1 = new Chart(ctx_pie1, {
+        type: 'pie',
+        data: {
+            labels: dataEgitim,
+            datasets: [{
+                label: 'My First Dataset',
+                data: dataCovidSayisi,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    '#4E9F3D',
+                    '#C84B31'
+
+                ],
+                
+            }]
+        },
+       
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Personel Yönetim</title>
+</head>
+
+<body>
+    <a href="/" class="btn btn-info mt-4 mx-4">Anasayfa</a>
+    <% personelData.forEach(e=> { %>
+        <div class="container col-lg-12 ">
+            <h1 class="text-center mt-4">Personel Profil</h1>
+
+            <table class="table table-striped mt-4">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TC No</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Kan Grubu</th>
+                        <th>Doğum Yeri</th>
+                        <th>Pozisyon</th>
+                        <th>Maaş</th>
+                        <th>Eğitim</th>
+                        <th>Aşı Türü</th>
+                        <th>Doz</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <%=e.personel_id%>
+                        </td>
+                        <td>
+                            <%= e.tc_no%>
+                        </td>
+                        <td>
+                            <%= e.isim%>
+                        </td>
+                        <td>
+                            <%= e.soyisim%>
+                        </td>
+                        <td>
+                            <%= e.kan_grubu%>
+                        </td>
+                        <td>
+                            <%= e.dogum_yeri%>
+                        </td>
+                        <td>
+                            <%= e.pozisyon%>
+                        </td>
+                        <td>
+                            <%= e.maas%>₺
+                        </td>
+                        <td>
+                            <%= e.egitim%>
+                        </td>
+                        <td>
+                            <%= e.asi_turu%>
+                        </td>
+                        <td>
+                            <%= e.asi_doz%>
+                        </td>
+
+                    </tr>
+
+
+
+
+                </tbody>
+
+
+
+            </table>
+            <div class="btns" style="float: right; ">
+
+                <a href="/personelDuzenle/<%= e.personel_id %> " class="btn btn-info btn-lg mx-4">DÜZENLE</a>
+                <a href="/delete_personel/<%= e.personel_id %> " class="btn btn-danger btn-lg mx-4">SİL</a>
+            </div>
+
+            
+                <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Çalışma Saatleri</div>
+                    <% if(workingData == ""){%>
+                        <h5 class="text-center text-danger">Çalışma Bilgisi Bulunamadı...</h5>
+                    <%}%>
+                    <div class="card-body">
+                        <%workingData.forEach(element=> { %>
+                        <% if(element.haftaici===0){%>
+                            <h5>Haftaiçi: <span class="text-warning">Hayır</span> </h5>
+                            <% }else {%>
+                                <h5>Haftaiçi: <span class="text-warning">Evet</span> </h5>
+                                <% } %>
+                                    <% if(element.haftasonu===0){%>
+                                        <h5>Haftasonu: <span class="text-warning">Hayır</span> </h5>
+                                        <% }else {%>
+                                            <h5>Haftasonu: <span class="text-warning">Evet</span> </h5>
+                                            <% } %>
+                                                <h5>Başlama Saati: <span class="text-warning">
+                                                        <%= element.baslama_saati.slice(0,5)%>
+                                                    </span></h5>
+                                                <h5>Bitiş Saati: <span class="text-warning">
+                                                        <%= element.bitis_saati.slice(0,5)%>
+                                                    </span></h5>
+                                                <%haftalikSaat.forEach(e=> { %>
+                                                    <h5>Haftalık Toplam saat:
+                                                        <% if(element.haftasonu===0){%>
+                                                            <span class="text-warning">
+                                                                <%=e.saat*5%>
+                                                            </span> Saat
+                                                    </h5>
+                                                    <% }else {%>
+                                                        <span class="text-warning">
+                                                            <%=e.saat*7%>
+                                                        </span> Saat</h5>
+                                                        <% } %>
+
+                                                            <% }) %>
+                                                            
+                    </div>                              
+                    <% }); %>
+                    <% if(workingData == ""){%>
+                        <a href="/calismaBilgisiEkle/<%= e.personel_id %> " class="btn btn-warning btn-lg mb-4 mx-1">ÇALIŞMA BİLGİSİ EKLE</a>
+                    <% }else{%>
+                        <a href="/calismaBilgisiDuzenle/<%= e.personel_id %> " class="btn btn-info btn-lg mb-4 mx-1">ÇALIŞMA BİLGİSİ DÜZENLE</a>
+                        <a href="/delete_calisma_bilgisi/<%= e.personel_id %> " class="btn btn-danger btn-lg mb-4 mx-1">SİL</a>
+                    <%} %>
+                    
+                    
+                    
+                </div>
+                <% }); %>
+                    
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
